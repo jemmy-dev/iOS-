@@ -28,5 +28,16 @@
   
   (5)去高版本的三方库下载privacyInfo，复制文件内容。加入低版本文件中。
   (6) ios 尽量避免gif动图，可以使用json动画代替，会造成cpu大量消耗。
+5.iOS循环引用问题：Timer的使用必须遵循初始化一次，就要释放一次。例子：
+override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isPlaying {
+            //endPlayVideoTimer()
+            timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(threeSecondTimeAction), userInfo: nil, repeats: true)
+            RunLoop.current.add(timer!, forMode: .common)
+            timer?.fire()
+        }
+    }
+    会早造成控制器无法释放，猜测原因timer被加入了Runlop,如果多次调用viewWillAppear，每次创建新对象时，旧timer没有释放，引用计数不为0，对self依然有有引用，导致控制器不能释放。
 
 1.png转webp：https://anywebp.com/png-to-webp
