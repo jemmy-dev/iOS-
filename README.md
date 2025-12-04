@@ -9,19 +9,7 @@
 3.dyld: Library not loaded崩溃，现象描述打开app直接崩溃<img width="433" height="235" alt="截屏2025-11-03 18 23 52" src="https://github.com/user-attachments/assets/79da14c3-6528-4370-9e8b-a1bf3fe80cc8" /> 
 解决步骤：打开app崩溃几次——去手机的隐私分析中查看崩溃记录可查看有问题的动态库
 
-4.iOS循环引用问题：Timer的使用必须遵循初始化一次，就要释放一次。例子：
-override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if isPlaying {
-            //endPlayVideoTimer()
-            timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(threeSecondTimeAction), userInfo: nil, repeats: true)
-            RunLoop.current.add(timer!, forMode: .common)
-            timer?.fire()
-        }
-    }
-    会早造成控制器无法释放，猜测原因timer被加入了Runlop,如果多次调用viewWillAppear，每次创建新对象时，旧timer没有释放，引用计数不为0，对self依然有有引用，导致控制器不能释放。
-
-# ios开发工具![IMG_0003](https://github.com/user-attachments/assets/3e0dbba8-db35-447e-ad47-5a9f6fd9ac8c)
+![IMG_0003](https://github.com/user-attachments/assets/3e0dbba8-db35-447e-ad47-5a9f6fd9ac8c)
 
 结果：第三方库系统版本不兼容（升级或者降级版本）
 
@@ -42,4 +30,17 @@ override func viewWillAppear(_ animated: Bool) {
   (5)去高版本的三方库下载privacyInfo，复制文件内容。加入低版本文件中。
   (6) ios 尽量避免gif动图，可以使用json动画代替，会造成cpu大量消耗。
 
+5.iOS循环引用问题：Timer的使用必须遵循初始化一次，就要释放一次。例子：
+override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if isPlaying {
+            //endPlayVideoTimer()
+            timer = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(threeSecondTimeAction), userInfo: nil, repeats: true)
+            RunLoop.current.add(timer!, forMode: .common)
+            timer?.fire()
+        }
+    }
+    会早造成控制器无法释放，猜测原因timer被加入了Runlop,如果多次调用viewWillAppear，每次创建新对象时，旧timer没有释放，引用计数不为0，对self依然有有引用，导致控制器不能释放。
+  
+# ios开发工具
 1.png转webp：https://anywebp.com/png-to-webp
