@@ -50,6 +50,8 @@ override func viewWillAppear(_ animated: Bool) {
     会早造成控制器无法释放，猜测原因timer被加入了Runlop,如果多次调用viewWillAppear，每次创建新对象时，旧timer没有释放，引用计数不为0，对self依然有有引用，导致控制器不能释放。
 
 6.WKWebView push 完成之后底部有96pt的空白高度（tabbar高度）原因safeArea问题，解决webView?.scrollView.contentInsetAdjustmentBehavior = .never
+
+7.如何禁用深色模式：info.plist中增加Key-UIUserInterfaceStyle（Appearance） = Light
   
 # ios开发工具
 1.png转webp：https://anywebp.com/png-to-webp
