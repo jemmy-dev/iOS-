@@ -55,3 +55,28 @@ override func viewWillAppear(_ animated: Bool) {
   
 # ios开发工具
 1.png转webp：https://anywebp.com/png-to-webp
+
+# iosUI
+旋转适配
+一、系统提供的旋转适配方法：
+（1）AppDelegate中提供的supportedInterfaceOrientationsFor方法
+（2）info.plist中提供的Supported interface orientations（iOS手机）（Supported interface orientations (iPad)）（ipad相关）注意Info.plist中的设置是与工程中General下deployment Info保持一致的
+（3）UIViewController中的supportedInterfaceOrientations
+（4）iOS13以上提供的UIWindowScene中的windowScene.requestGeometryUpdate（iOS16.0以上设置横竖屏）
+二、旋转方法的优先级
+ （1）AppDelegate中提供的supportedInterfaceOrientationsFor的优先级最高，即使在info或者deploymentInfo中设置竖屏（Portrait (bottom home button)），但在AppDelegate中设置all，设备依然可以旋转。
+ （2）如果AppDelegate中不重写supportedInterfaceOrientationsFor，优先级为info(deploymentInfo)>UIViewController(公共的TabbarCotroller>公共NavigationBarController>公共UIViewController>具体UIViewController),可以理解为取他们的交集。
+ （3）iOS13.0以后由于引入多任务模式导致整体窗口布局改变：
+    iOS13前后的UI框架变化：
+<img width="1280" height="402" alt="13以前的窗口框架" src="https://github.com/user-attachments/assets/9d3412e1-75e7-417a-a991-a39514a57453" />
+<img width="1280" height="551" alt="iOS13 0以后的窗口框架" src="https://github.com/user-attachments/assets/8c1f475d-f1cc-461e-9e53-039bdc231224" />
+
+
+
+
+
+
+
+
+
+ 
