@@ -53,6 +53,13 @@ override func viewWillAppear(_ animated: Bool) {
 6.WKWebView push 完成之后底部有96pt的空白高度（tabbar高度）原因safeArea问题，解决webView?.scrollView.contentInsetAdjustmentBehavior = .never
 
 7.如何禁用深色模式：info.plist中增加Key-UIUserInterfaceStyle（Appearance） = Light
+
+8.记一次奇怪的崩溃：
+设备ipad 系统版本12.5.8，
+崩溃现象：打开app，看到LaunchScreen，直接崩溃。崩溃log：Failure Reason: Cannot launch '/private/var/containers/Bundle/Application/5753BD15-2C55-43AD-9AEB-4C98429414CC/XXX.app': Unspecified
+崩溃原因: 使用简写 guard let self else { ... }，这些需要 Swift 5.7+ 的编译与运行时配合。一般打 iOS 12 包会带嵌入式 Swift 运行时，多数机器没问题，但在 老设备 + 老系统补丁（12.5.8） 上，若工具链/嵌入库组合有边界问题，个别机型会先暴露。
+正确写法：guard let self = self else { ... } if let error = error { ... }
+
   
 # ios开发工具
 1.png转webp：https://anywebp.com/png-to-webp
