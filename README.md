@@ -96,6 +96,33 @@ let prefs = UIWindowScene.GeometryPreferences.iOS(interfaceOrientations: [.portr
 windowScene.requestGeometryUpdate(prefs) { error in
 }
 
+iOS 热重载工具真机使用（injectionNext）
+
+(1)准备工作
+  1.git下载injectionNext(https://github.com/johnno1962/InjectionNext/releases),下载完成之后将injectionNext移动到应用程序下。
+  
+  2.在项目中集成injectionNext,在package中集成injectionNext（连接： https://github.com/johnno1962/InjectionNext.git）,如图所示：
+
+  <img width="1010" height="206" alt="截屏2026-05-07 15 08 06" src="https://github.com/user-attachments/assets/590d0cdd-8bd6-4d27-be84-b326f9a17f2c" />
+
+(2)集成到项目
+  1.Build setting -> other linker Flags 仅在debug下增加-Xlinker和-interposable，如图：
+
+  <img width="451" height="111" alt="interposable" src="https://github.com/user-attachments/assets/1cd220f9-7223-4721-9b53-6006bd967da9" />
+
+  2.打开mac上的injectionNext（同意本地网络权限），setting -> injection选择工程的根目录，setting -> device enable device injection选项打开，code sign选择与工程相符的签名。如图：
+
+  <img width="202" height="439" alt="截屏2026-05-07 15 28 07" src="https://github.com/user-attachments/assets/a80d7864-86d6-42dd-8e26-a54f182c773d" />
+
+  3.关闭xcode，使用injectionNext的lanuched xcode，打开项目，重新运行app（注意：允许手机弹出本地网络权限，如果没有弹窗一种情况是没有在info.plist中添加申请本地弹窗描述导致，无法弹窗）
+
+  <img width="729" height="18" alt="截屏2026-05-07 15 34 52" src="https://github.com/user-attachments/assets/ec66df09-040b-4e6f-ac50-bf17666eb1ac" />
+  同意本地网络权限后，重新运行app，就可以愉快的使用了。
+
+
+
+
+
 
 
 
