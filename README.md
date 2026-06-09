@@ -60,6 +60,9 @@ override func viewWillAppear(_ animated: Bool) {
 崩溃原因: 使用简写 guard let self else { ... }，这些需要 Swift 5.7+ 的编译与运行时配合。一般打 iOS 12 包会带嵌入式 Swift 运行时，多数机器没问题，但在 老设备 + 老系统补丁（12.5.8） 上，若工具链/嵌入库组合有边界问题，个别机型会先暴露。
 正确写法：guard let self = self else { ... } if let error = error { ... }
 
+9.iOS 通过Scheme和Universal Link冷启动app时获取携带参数的方法有所不同，scheme是didFinishLaunchingWithOptions方法中launchOptions的let url = launchOptions?[.url] as? URL；universal link通过let userActivity = launchOptions?[.userActivity] as? NSUserActivity获取。
+
+
   
 # ios开发工具
 1.png转webp：https://anywebp.com/png-to-webp
